@@ -1,0 +1,379 @@
+{\rtf1\ansi\ansicpg950\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!DOCTYPE html>\
+<html lang="zh-TW">\
+<head>\
+    <meta charset="UTF-8">\
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">\
+    <title>\uc0\u37240 \u31278 \u37129 \u26449 \u40629 \u21253 \u25490 \u31243 \u21161 \u25163 </title>\
+    <style>\
+        :root \{\
+            --primary: #8c7355;\
+            --primary-light: #f5f0ea;\
+            --text-main: #333;\
+            --text-muted: #666;\
+            --bg-color: #faf9f7;\
+            --border-color: #e0d8c8;\
+        \}\
+        body \{\
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;\
+            background-color: var(--bg-color);\
+            color: var(--text-main);\
+            line-height: 1.6;\
+            padding: 20px;\
+            margin: 0;\
+        \}\
+        .container \{\
+            max-width: 900px;\
+            margin: 0 auto;\
+        \}\
+        h1, h2, h3 \{\
+            color: var(--primary);\
+        \}\
+        h1 \{ text-align: center; border-bottom: 2px solid var(--primary); padding-bottom: 10px; \}\
+        .grid \{\
+            display: grid;\
+            grid-template-columns: 1fr 1fr;\
+            gap: 20px;\
+        \}\
+        @media (max-width: 768px) \{\
+            .grid \{ grid-template-columns: 1fr; \}\
+        \}\
+        .card \{\
+            background: #fff;\
+            border: 1px solid var(--border-color);\
+            border-radius: 8px;\
+            padding: 20px;\
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);\
+        \}\
+        .form-group \{\
+            margin-bottom: 15px;\
+            display: flex;\
+            justify-content: space-between;\
+            align-items: center;\
+        \}\
+        .form-group label \{ font-weight: bold; font-size: 0.95em;\}\
+        .form-group input \{\
+            width: 80px;\
+            padding: 5px 10px;\
+            border: 1px solid var(--border-color);\
+            border-radius: 4px;\
+            text-align: right;\
+        \}\
+        table \{\
+            width: 100%;\
+            border-collapse: collapse;\
+            margin-top: 10px;\
+        \}\
+        th, td \{\
+            text-align: right;\
+            padding: 8px;\
+            border-bottom: 1px solid var(--border-color);\
+        \}\
+        th \{ color: var(--text-muted); font-weight: normal; \}\
+        th:first-child, td:first-child \{ text-align: left; font-weight: bold; \}\
+        .timeline \{\
+            position: relative;\
+            padding-left: 20px;\
+            margin-top: 20px;\
+            border-left: 2px solid var(--primary);\
+        \}\
+        .timeline-item \{\
+            position: relative;\
+            margin-bottom: 20px;\
+        \}\
+        .timeline-item::before \{\
+            content: '';\
+            position: absolute;\
+            left: -27px;\
+            top: 5px;\
+            width: 12px;\
+            height: 12px;\
+            border-radius: 50%;\
+            background: var(--primary);\
+        \}\
+        .time \{ font-weight: bold; color: var(--primary); font-size: 1.1em; \}\
+        .task \{ font-weight: bold; margin-left: 10px;\}\
+        .desc \{ color: var(--text-muted); font-size: 0.9em; margin-top: 4px; display: block; \}\
+        \
+        /* Utility */\
+        .highlight \{ background-color: var(--primary-light); padding: 10px; border-radius: 6px; margin-top: 15px; \}\
+    </style>\
+</head>\
+<body>\
+\
+<div class="container">\
+    <h1>\uc0\u55358 \u56662  \u37240 \u31278 \u37129 \u26449 \u40629 \u21253 \u25490 \u31243 \u21161 \u25163 </h1>\
+\
+    <div class="grid">\
+        <div class="left-col">\
+            <div class="card">\
+                <h2>1. \uc0\u40629 \u22296 \u37197 \u26041 \u35373 \u23450 </h2>\
+                <div class="form-group">\
+                    <label>\uc0\u35069 \u20316 \u25976 \u37327  (\u38982 )</label>\
+                    <input type="number" id="loafCount" value="2" step="1">\
+                </div>\
+                <div class="form-group">\
+                    <label>\uc0\u21934 \u38982 \u40629 \u22296 \u37325  (g)</label>\
+                    <input type="number" id="loafWeight" value="850" step="50">\
+                </div>\
+                <div class="form-group">\
+                    <label>\uc0\u20027 \u40629 \u22296 \u21547 \u27700 \u37327  (%)</label>\
+                    <input type="number" id="hydration" value="75" step="1">\
+                </div>\
+                <div class="form-group">\
+                    <label>\uc0\u37237 \u31278 \u27604 \u20363  Levain (%)</label>\
+                    <input type="number" id="levainPct" value="20" step="1">\
+                </div>\
+                <div class="form-group">\
+                    <label>\uc0\u40573 \u27604 \u20363  (%)</label>\
+                    <input type="number" id="saltPct" value="2" step="0.1">\
+                </div>\
+            </div>\
+\
+            <div class="card" style="margin-top: 20px;">\
+                <h2>2. \uc0\u29872 \u22659 \u33287 \u26178 \u38291 \u35373 \u23450 </h2>\
+                <div class="form-group">\
+                    <label>\uc0\u23460 \u20839 /\u30332 \u37237 \u28331 \u24230  (\'b0C)</label>\
+                    <input type="number" id="roomTemp" value="24" step="0.5">\
+                </div>\
+                <div class="form-group">\
+                    <label>\uc0\u38283 \u22987 \u26178 \u38291  (Levain \u39221 \u39178 #1)</label>\
+                    <input type="datetime-local" id="startTime">\
+                </div>\
+            </div>\
+\
+            <div class="card" style="margin-top: 20px;">\
+                <h2>3. \uc0\u27700 \u28331 \u25511 \u21046  (DDT)</h2>\
+                <div class="form-group">\
+                    <label>\uc0\u30446 \u27161 \u40629 \u22296 \u28331 \u24230  (\'b0C)</label>\
+                    <input type="number" id="targetTemp" value="26" step="0.5">\
+                </div>\
+                <div class="form-group">\
+                    <label>\uc0\u40629 \u31881 \u28331 \u24230  (\'b0C)</label>\
+                    <input type="number" id="flourTemp" value="24" step="0.5">\
+                </div>\
+                <div class="form-group">\
+                    <label>\uc0\u25705 \u25830 \u20418 \u25976  (\u25163 \u25545 \u32004 1, \u27231 \u22120 \u32004 6-10)</label>\
+                    <input type="number" id="friction" value="2" step="1">\
+                </div>\
+                <div class="form-group">\
+                    <label>\uc0\u20912 \u27700 \u28331 \u24230  (\'b0C)</label>\
+                    <input type="number" id="coldWaterTemp" value="5" step="1">\
+                </div>\
+                <div class="form-group">\
+                    <label>\uc0\u29105 \u27700 \u28331 \u24230  (\'b0C)</label>\
+                    <input type="number" id="hotWaterTemp" value="40" step="1">\
+                </div>\
+            </div>\
+        </div>\
+\
+        <div class="right-col">\
+            <div class="card">\
+                <h2>\uc0\u55357 \u56523  \u37197 \u26041 \u35336 \u31639 \u32080 \u26524 </h2>\
+                <table>\
+                    <thead>\
+                        <tr>\
+                            <th>\uc0\u26448 \u26009 </th>\
+                            <th>\uc0\u28888 \u28953 \u30334 \u20998 \u27604 </th>\
+                            <th>\uc0\u37325 \u37327  (g)</th>\
+                        </tr>\
+                    </thead>\
+                    <tbody id="recipeTable">\
+                        </tbody>\
+                </table>\
+                <div class="highlight">\
+                    <strong>\uc0\u32317 \u40629 \u22296 \u37325 \u65306 </strong> <span id="totalWeightOut">1700</span> g\
+                </div>\
+            </div>\
+\
+            <div class="card" style="margin-top: 20px;">\
+                <h2>\uc0\u55357 \u56487  \u27700 \u28331 \u33287 \u35519 \u21512 \u35336 \u31639 </h2>\
+                <div style="margin-bottom: 10px;">\
+                    <strong>\uc0\u24314 \u35696 \u25152 \u38656 \u27700 \u28331 \u65306 </strong> <span id="reqWaterTemp" style="color:var(--primary); font-size:1.2em; font-weight:bold;">0</span> \'b0C\
+                </div>\
+                <div class="highlight" style="margin-top: 0;">\
+                    \uc0\u25152 \u38656 \u32317 \u27700 \u37327 \u65306  <span id="waterAmountOut">0</span> g<br>\
+                    \uc0\u10132  \u20912 \u27700  (<span id="cwTempOut"></span>\'b0C)\u65306  <strong><span id="coldWaterOut">0</span> g</strong><br>\
+                    \uc0\u10132  \u29105 \u27700  (<span id="hwTempOut"></span>\'b0C)\u65306  <strong><span id="hotWaterOut">0</span> g</strong>\
+                </div>\
+            </div>\
+\
+            <div class="card" style="margin-top: 20px;">\
+                <h2>\uc0\u9201 \u65039  \u35069 \u20316 \u26178 \u31243 \u34920 </h2>\
+                <div class="desc" style="margin-bottom: 10px;">\
+                    * \uc0\u20381 \u25818  <span id="tempOut">24</span>\'b0C \u29872 \u22659 \u28331 \u24230 \u21205 \u24907 \u28436 \u31639 \u65292 \u26178 \u38291 \u20677 \u20379 \u21443 \u32771 \u65292 \u35531 \u35264 \u23519 \u40629 \u22296 \u29376 \u24907  (Watch the dough, not the clock)\u12290 \
+                </div>\
+                <div class="timeline" id="timeline">\
+                    </div>\
+            </div>\
+        </div>\
+    </div>\
+</div>\
+\
+<script>\
+    // \uc0\u21021 \u22987 \u21270 \u38283 \u22987 \u26178 \u38291 \u28858 \u20170 \u22825 \u26089 \u19978  08:00\
+    const now = new Date();\
+    now.setHours(8, 0, 0, 0);\
+    // \uc0\u26684 \u24335 \u21270 \u28858  datetime-local \u25509 \u21463 \u30340  YYYY-MM-DDThh:mm\
+    const tzOffset = now.getTimezoneOffset() * 60000;\
+    const localISOTime = (new Date(now - tzOffset)).toISOString().slice(0, 16);\
+    document.getElementById('startTime').value = localISOTime;\
+\
+    // \uc0\u32129 \u23450 \u25152 \u26377  input \u25913 \u35722 \u26178 \u33258 \u21205 \u37325 \u31639 \
+    document.querySelectorAll('input').forEach(input => \{\
+        input.addEventListener('input', calculateAll);\
+    \});\
+\
+    function calculateAll() \{\
+        calcRecipe();\
+        calcWaterTemp();\
+        calcSchedule();\
+    \}\
+\
+    // 1. \uc0\u37197 \u26041 \u35336 \u31639 \u37007 \u36655 \
+    let totalWaterGrams = 0; // \uc0\u32102 \u27700 \u28331 \u35519 \u21512 \u20351 \u29992 \
+    function calcRecipe() \{\
+        const loaves = parseFloat(document.getElementById('loafCount').value) || 0;\
+        const loafWeight = parseFloat(document.getElementById('loafWeight').value) || 0;\
+        const hydration = parseFloat(document.getElementById('hydration').value) || 0;\
+        const levainPct = parseFloat(document.getElementById('levainPct').value) || 0;\
+        const saltPct = parseFloat(document.getElementById('saltPct').value) || 0;\
+\
+        const totalDough = loaves * loafWeight;\
+        const totalPct = 100 + hydration + levainPct + saltPct;\
+        \
+        const flour = Math.round(totalDough / (totalPct / 100));\
+        const water = Math.round(flour * (hydration / 100));\
+        const levain = Math.round(flour * (levainPct / 100));\
+        const salt = Math.round(flour * (saltPct / 100));\
+\
+        totalWaterGrams = water;\
+        document.getElementById('totalWeightOut').innerText = totalDough;\
+\
+        document.getElementById('recipeTable').innerHTML = `\
+            <tr><td>\uc0\u39640 \u31563 \u40629 \u31881  (Flour)</td><td>100%</td><td>$\{flour\}</td></tr>\
+            <tr><td>\uc0\u27700  (Water)</td><td>$\{hydration\}%</td><td>$\{water\}</td></tr>\
+            <tr><td>\uc0\u39791 \u37030 \u31278  (Levain)</td><td>$\{levainPct\}%</td><td>$\{levain\}</td></tr>\
+            <tr><td>\uc0\u40573  (Salt)</td><td>$\{saltPct\}%</td><td>$\{salt\}</td></tr>\
+        `;\
+    \}\
+\
+    // 2. \uc0\u27700 \u28331 \u35336 \u31639 \u37007 \u36655 \
+    function calcWaterTemp() \{\
+        const targetTemp = parseFloat(document.getElementById('targetTemp').value);\
+        const flourTemp = parseFloat(document.getElementById('flourTemp').value);\
+        const friction = parseFloat(document.getElementById('friction').value);\
+        const coldT = parseFloat(document.getElementById('coldWaterTemp').value);\
+        const hotT = parseFloat(document.getElementById('hotWaterTemp').value);\
+\
+        // \uc0\u31777 \u21270 \u27700 \u28331 \u20844 \u24335 : (\u30446 \u27161 \u28331 \u24230  x 3) - \u40629 \u31881 \u28331 \u24230  - \u23460 \u28331 (\u36889 \u35041 \u20551 \u35373 \u37237 \u31278 \u28331 \u24230 =\u23460 \u28331 ) - \u25705 \u25830 \u20418 \u25976 \
+        const roomT = parseFloat(document.getElementById('roomTemp').value);\
+        let reqWaterTemp = (targetTemp * 3) - flourTemp - roomT - friction;\
+        reqWaterTemp = Math.round(reqWaterTemp * 10) / 10;\
+\
+        document.getElementById('reqWaterTemp').innerText = reqWaterTemp;\
+        document.getElementById('waterAmountOut').innerText = totalWaterGrams;\
+        document.getElementById('cwTempOut').innerText = coldT;\
+        document.getElementById('hwTempOut').innerText = hotT;\
+\
+        // \uc0\u20919 \u29105 \u27700 \u35519 \u21512  (\u21313 \u23383 \u20132 \u21449 \u27861 )\
+        // HotWater = Total * (ReqTemp - ColdTemp) / (HotTemp - ColdTemp)\
+        let hotWater = 0;\
+        let coldWater = totalWaterGrams;\
+        \
+        if (reqWaterTemp >= hotT) \{\
+            hotWater = totalWaterGrams;\
+            coldWater = 0;\
+        \} else if (reqWaterTemp <= coldT) \{\
+            hotWater = 0;\
+            coldWater = totalWaterGrams;\
+        \} else \{\
+            hotWater = totalWaterGrams * ((reqWaterTemp - coldT) / (hotT - coldT));\
+            coldWater = totalWaterGrams - hotWater;\
+        \}\
+\
+        document.getElementById('hotWaterOut').innerText = Math.round(hotWater);\
+        document.getElementById('coldWaterOut').innerText = Math.round(coldWater);\
+    \}\
+\
+    // 3. \uc0\u25490 \u31243 \u35336 \u31639 \u37007 \u36655 \
+    function calcSchedule() \{\
+        const startTimeStr = document.getElementById('startTime').value;\
+        const temp = parseFloat(document.getElementById('roomTemp').value);\
+        document.getElementById('tempOut').innerText = temp;\
+\
+        if (!startTimeStr) return;\
+        let currentTime = new Date(startTimeStr);\
+\
+        // \uc0\u28331 \u24230 \u35036 \u20767 \u28436 \u31639 \u27861 \u65306 \u20197  23\'b0C \u28858 \u22522 \u28310 \u65292 \u27599 \u21319 \u39640  1\'b0C \u26178 \u38291 \u32302 \u30701 \u32004  7% (0.93)\
+        const baseTemp = 23;\
+        const tempFactor = Math.pow(0.93, temp - baseTemp);\
+\
+        const timelineEl = document.getElementById('timeline');\
+        timelineEl.innerHTML = ''; // \uc0\u28165 \u31354 \
+\
+        // \uc0\u36628 \u21161 \u20989 \u25976 \u65306 \u26032 \u22686 \u25490 \u31243 \u31680 \u40670 \
+        function addEvent(title, desc) \{\
+            const timeStr = currentTime.toLocaleTimeString('zh-TW', \{ hour: '2-digit', minute: '2-digit', hour12: false \});\
+            const dateStr = currentTime.toLocaleDateString('zh-TW', \{ month: 'short', day: 'numeric' \});\
+            \
+            timelineEl.innerHTML += `\
+                <div class="timeline-item">\
+                    <span class="time">$\{dateStr\} $\{timeStr\}</span>\
+                    <span class="task">$\{title\}</span>\
+                    <span class="desc">$\{desc\}</span>\
+                </div>\
+            `;\
+        \}\
+\
+        // --- \uc0\u19977 \u38542 \u27573  Levain ---\
+        addEvent('Levain \uc0\u39221 \u39178  #1 (\u21914 \u37266 )', '\u27604 \u20363  1:1:1');\
+        // \uc0\u38542 \u27573  1 \u30332 \u37237 \u26178 \u38291 \u65306 \u22522 \u28310  4 \u23567 \u26178 \
+        currentTime = new Date(currentTime.getTime() + (4 * tempFactor * 3600000));\
+        \
+        addEvent('Levain \uc0\u39221 \u39178  #2 (\u32396 \u39178 )', '\u27604 \u20363  1:2:2\u65292 \u27963 \u24615 \u21152 \u36895 ');\
+        // \uc0\u38542 \u27573  2 \u30332 \u37237 \u26178 \u38291 \u65306 \u22522 \u28310  5.5 \u23567 \u26178 \
+        currentTime = new Date(currentTime.getTime() + (5.5 * tempFactor * 3600000));\
+\
+        addEvent('Levain \uc0\u39221 \u39178  #3 (\u26368 \u32066 \u31278 )', '\u27604 \u20363  1:3:3\u65292 \u34909 \u21050 \u24020 \u23792 ');\
+        // \uc0\u38542 \u27573  3 \u30332 \u37237 \u26178 \u38291 \u65306 \u22522 \u28310  7.5 \u23567 \u26178 \
+        currentTime = new Date(currentTime.getTime() + (7.5 * tempFactor * 3600000));\
+\
+        // --- \uc0\u20027 \u40629 \u22296 \u38542 \u27573  ---\
+        addEvent('\uc0\u27700 \u21512  (Autolyse) & \u25898 \u25292  (Mix)', '\u21152 \u20837  Levain \u33287 \u40573 \u65292 \u30906 \u35469 \u40629 \u22296 \u28331 \u24230 ');\
+        \
+        // \uc0\u25240 \u30090  (3\u27425 , \u27599  30 \u20998 \u37912 )\
+        for (let i = 1; i <= 3; i++) \{\
+            currentTime = new Date(currentTime.getTime() + (30 * 60000));\
+            addEvent(`\uc0\u25240 \u30090  Fold #$\{i\}`, i === 1 ? 'Stretch & Fold (\u24375 \u21270 \u40629 \u31563 )' : 'Coil Fold (\u36629 \u26580 \u25240 \u30090 )');\
+        \}\
+\
+        // \uc0\u22522 \u30990 \u30332 \u37237 \u21097 \u39192 \u26178 \u38291  (\u32317 \u22522 \u30332  \u22522 \u28310 \u32004  5.5 \u23567 \u26178 \u65292 \u25187 \u38500 \u21069 \u38754 \u30340 \u25240 \u30090  1.5\u23567 \u26178 )\
+        const totalBulkBase = 5.5 * tempFactor * 3600000;\
+        const remainingBulk = totalBulkBase - (1.5 * 3600000); \
+        if(remainingBulk > 0) \{\
+            currentTime = new Date(currentTime.getTime() + remainingBulk);\
+        \}\
+\
+        addEvent('\uc0\u30332 \u37237 \u32080 \u26463  & \u38928 \u25972 \u24418  (Preshape)', '\u20998 \u21106 \u40629 \u22296 \u65292 \u28414 \u22291 \u65292 \u26700 \u19978 \u39686 \u24347  20-30 \u20998 \u37912 ');\
+        \
+        currentTime = new Date(currentTime.getTime() + (30 * 60000));\
+        addEvent('\uc0\u26368 \u32066 \u25972 \u24418  & \u20837 \u27169  (Shape)', '\u25918 \u20837 \u30332 \u37237 \u31811 \u65292 \u21253 \u35037 \u22909 \u28310 \u20633 \u20919 \u34255 \u30332 \u37237  (Cold Retard)');\
+\
+        // \uc0\u38928 \u35336 \u28888 \u28900  (\u38548 \u22825 \u26089 \u19978 )\
+        currentTime = new Date(currentTime.getTime() + (14 * 3600000)); // \uc0\u20551 \u35373 \u20919 \u34255  14 \u23567 \u26178 \
+        addEvent('\uc0\u20837 \u29200 \u28888 \u28900  (Bake)', '\u21106 \u32218 \u65292 \u20837 \u29200 \u28888 \u28900 \u12290 \u38928 \u20808 \u20197  250\'b0C \u38928 \u29105 \u37956 \u37941 \u37707  45 \u20998 \u37912 ');\
+    \}\
+\
+    // \uc0\u21021 \u22987 \u35336 \u31639 \
+    calculateAll();\
+</script>\
+\
+</body>\
+</html>}
