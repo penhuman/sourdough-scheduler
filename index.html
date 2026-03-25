@@ -1,372 +1,94 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>酸種鄉村麵包排程助手</title>
     <style>
-        :root {
-            --primary: #8c7355;
-            --primary-light: #f5f0ea;
-            --text-main: #333;
-            --text-muted: #666;
-            --bg-color: #faf9f7;
-            --border-color: #e0d8c8;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            padding: 20px;
-            margin: 0;
-        }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        h1, h2, h3 {
-            color: var(--primary);
-        }
-        h1 { text-align: center; border-bottom: 2px solid var(--primary); padding-bottom: 10px; }
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        @media (max-width: 768px) {
-            .grid { grid-template-columns: 1fr; }
-        }
-        .card {
-            background: #fff;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-        }
-        .form-group {
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .form-group label { font-weight: bold; font-size: 0.95em;}
-        .form-group input {
-            width: 80px;
-            padding: 5px 10px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            text-align: right;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-        th, td {
-            text-align: right;
-            padding: 8px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        th { color: var(--text-muted); font-weight: normal; }
-        th:first-child, td:first-child { text-align: left; font-weight: bold; }
-        .timeline {
-            position: relative;
-            padding-left: 20px;
-            margin-top: 20px;
-            border-left: 2px solid var(--primary);
-        }
-        .timeline-item {
-            position: relative;
-            margin-bottom: 20px;
-        }
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -27px;
-            top: 5px;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--primary);
-        }
-        .time { font-weight: bold; color: var(--primary); font-size: 1.1em; }
-        .task { font-weight: bold; margin-left: 10px;}
-        .desc { color: var(--text-muted); font-size: 0.9em; margin-top: 4px; display: block; }
-        
-        /* Utility */
-        .highlight { background-color: var(--primary-light); padding: 10px; border-radius: 6px; margin-top: 15px; }
+        :root { --primary: #8c7355; --primary-light: #f5f0ea; --text-main: #333; --bg-color: #faf9f7; --border-color: #e0d8c8; }
+        body { font-family: sans-serif; background-color: var(--bg-color); color: var(--text-main); padding: 20px; line-height: 1.5; }
+        .container { max-width: 900px; margin: 0 auto; }
+        .card { background: #fff; border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
+        h1, h2 { color: var(--primary); }
+        .form-group { display: flex; justify-content: space-between; margin-bottom: 10px; }
+        input { width: 80px; text-align: right; border: 1px solid #ccc; border-radius: 4px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 10px; border-bottom: 1px solid #eee; text-align: right; }
+        th:first-child, td:first-child { text-align: left; }
+        .timeline-item { border-left: 2px solid var(--primary); padding-left: 15px; margin-bottom: 15px; position: relative; }
+        .time { font-weight: bold; color: var(--primary); }
+        .task { font-weight: bold; display: block; }
+        .desc { font-size: 0.9em; color: #666; }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <h1>🥖 酸種鄉村麵包排程助手</h1>
-
-    <div class="grid">
-        <div class="left-col">
-            <div class="card">
-                <h2>1. 麵團配方設定</h2>
-                <div class="form-group">
-                    <label>製作數量 (顆)</label>
-                    <input type="number" id="loafCount" value="2" step="1">
-                </div>
-                <div class="form-group">
-                    <label>單顆麵團重 (g)</label>
-                    <input type="number" id="loafWeight" value="850" step="50">
-                </div>
-                <div class="form-group">
-                    <label>主麵團含水量 (%)</label>
-                    <input type="number" id="hydration" value="75" step="1">
-                </div>
-                <div class="form-group">
-                    <label>酵種比例 Levain (%)</label>
-                    <input type="number" id="levainPct" value="20" step="1">
-                </div>
-                <div class="form-group">
-                    <label>鹽比例 (%)</label>
-                    <input type="number" id="saltPct" value="2" step="0.1">
+    <div class="container">
+        <h1>🥖 酸種鄉村麵包排程助手</h1>
+        <div class="grid">
+            <div class="left">
+                <div class="card">
+                    <h2>1. 配方設定</h2>
+                    <div class="form-group"><label>數量 (顆)</label><input type="number" id="lCount" value="2"></div>
+                    <div class="form-group"><label>單重 (g)</label><input type="number" id="lWeight" value="850"></div>
+                    <div class="form-group"><label>含水 (%)</label><input type="number" id="hyd" value="75"></div>
+                    <div class="form-group"><label>酵種 (%)</label><input type="number" id="lev" value="20"></div>
+                    <div class="form-group"><label>發酵溫度 (°C)</label><input type="number" id="temp" value="24"></div>
+                    <div class="form-group"><label>開始時間</label><input type="datetime-local" id="sTime"></div>
                 </div>
             </div>
-
-            <div class="card" style="margin-top: 20px;">
-                <h2>2. 環境與時間設定</h2>
-                <div class="form-group">
-                    <label>室內/發酵溫度 (°C)</label>
-                    <input type="number" id="roomTemp" value="24" step="0.5">
+            <div class="right">
+                <div class="card">
+                    <h2>📋 計算結果</h2>
+                    <table id="rTable"></table>
                 </div>
-                <div class="form-group">
-                    <label>開始時間 (Levain 餵養#1)</label>
-                    <input type="datetime-local" id="startTime">
+                <div class="card">
+                    <h2>⏱️ 製作排程</h2>
+                    <div id="tLine"></div>
                 </div>
-            </div>
-
-            <div class="card" style="margin-top: 20px;">
-                <h2>3. 水溫控制 (DDT)</h2>
-                <div class="form-group">
-                    <label>目標麵團溫度 (°C)</label>
-                    <input type="number" id="targetTemp" value="26" step="0.5">
-                </div>
-                <div class="form-group">
-                    <label>麵粉溫度 (°C)</label>
-                    <input type="number" id="flourTemp" value="24" step="0.5">
-                </div>
-                <div class="form-group">
-                    <label>摩擦係數 (手揉約1, 機器約6-10)</label>
-                    <input type="number" id="friction" value="2" step="1">
-                </div>
-                <div class="form-group">
-                    <label>冰水溫度 (°C)</label>
-                    <input type="number" id="coldWaterTemp" value="5" step="1">
-                </div>
-                <div class="form-group">
-                    <label>熱水溫度 (°C)</label>
-                    <input type="number" id="hotWaterTemp" value="40" step="1">
-                </div>
-            </div>
-        </div>
-
-        <div class="right-col">
-            <div class="card">
-                <h2>📋 配方計算結果</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>材料</th>
-                            <th>烘焙百分比</th>
-                            <th>重量 (g)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="recipeTable">
-                        </tbody>
-                </table>
-                <div class="highlight">
-                    <strong>總麵團重：</strong> <span id="totalWeightOut">1700</span> g
-                </div>
-            </div>
-
-            <div class="card" style="margin-top: 20px;">
-                <h2>💧 水溫與調合計算</h2>
-                <div style="margin-bottom: 10px;">
-                    <strong>建議所需水溫：</strong> <span id="reqWaterTemp" style="color:var(--primary); font-size:1.2em; font-weight:bold;">0</span> °C
-                </div>
-                <div class="highlight" style="margin-top: 0;">
-                    所需總水量： <span id="waterAmountOut">0</span> g<br>
-                    ➔ 冰水 (<span id="cwTempOut"></span>°C)： <strong><span id="coldWaterOut">0</span> g</strong><br>
-                    ➔ 熱水 (<span id="hwTempOut"></span>°C)： <strong><span id="hotWaterOut">0</span> g</strong>
-                </div>
-            </div>
-
-            <div class="card" style="margin-top: 20px;">
-                <h2>⏱️ 製作時程表</h2>
-                <div class="desc" style="margin-bottom: 10px;">
-                    * 依據 <span id="tempOut">24</span>°C 環境溫度動態演算，時間僅供參考，請觀察麵團狀態 (Watch the dough, not the clock)。
-                </div>
-                <div class="timeline" id="timeline">
-                    </div>
             </div>
         </div>
     </div>
-</div>
+    <script>
+        const inputs = document.querySelectorAll('input');
+        const stInput = document.getElementById('sTime');
+        const now = new Date();
+        now.setHours(8,0,0,0);
+        stInput.value = new Date(now.getTime() - now.getTimezoneOffset()*60000).toISOString().slice(0,16);
 
-<script>
-    // 初始化開始時間為今天早上 08:00
-    const now = new Date();
-    now.setHours(8, 0, 0, 0);
-    // 格式化為 datetime-local 接受的 YYYY-MM-DDThh:mm
-    const tzOffset = now.getTimezoneOffset() * 60000;
-    const localISOTime = (new Date(now - tzOffset)).toISOString().slice(0, 16);
-    document.getElementById('startTime').value = localISOTime;
-
-    // 綁定所有 input 改變時自動重算
-    document.querySelectorAll('input').forEach(input => {
-        input.addEventListener('input', calculateAll);
-    });
-
-    function calculateAll() {
-        calcRecipe();
-        calcWaterTemp();
-        calcSchedule();
-    }
-
-    // 1. 配方計算邏輯
-    let totalWaterGrams = 0; // 給水溫調合使用
-    function calcRecipe() {
-        const loaves = parseFloat(document.getElementById('loafCount').value) || 0;
-        const loafWeight = parseFloat(document.getElementById('loafWeight').value) || 0;
-        const hydration = parseFloat(document.getElementById('hydration').value) || 0;
-        const levainPct = parseFloat(document.getElementById('levainPct').value) || 0;
-        const saltPct = parseFloat(document.getElementById('saltPct').value) || 0;
-
-        const totalDough = loaves * loafWeight;
-        const totalPct = 100 + hydration + levainPct + saltPct;
-        
-        const flour = Math.round(totalDough / (totalPct / 100));
-        const water = Math.round(flour * (hydration / 100));
-        const levain = Math.round(flour * (levainPct / 100));
-        const salt = Math.round(flour * (saltPct / 100));
-
-        totalWaterGrams = water;
-        document.getElementById('totalWeightOut').innerText = totalDough;
-
-        document.getElementById('recipeTable').innerHTML = `
-            <tr><td>高筋麵粉 (Flour)</td><td>100%</td><td>${flour}</td></tr>
-            <tr><td>水 (Water)</td><td>${hydration}%</td><td>${water}</td></tr>
-            <tr><td>魯邦種 (Levain)</td><td>${levainPct}%</td><td>${levain}</td></tr>
-            <tr><td>鹽 (Salt)</td><td>${saltPct}%</td><td>${salt}</td></tr>
-        `;
-    }
-
-    // 2. 水溫計算邏輯
-    function calcWaterTemp() {
-        const targetTemp = parseFloat(document.getElementById('targetTemp').value);
-        const flourTemp = parseFloat(document.getElementById('flourTemp').value);
-        const friction = parseFloat(document.getElementById('friction').value);
-        const coldT = parseFloat(document.getElementById('coldWaterTemp').value);
-        const hotT = parseFloat(document.getElementById('hotWaterTemp').value);
-
-        // 簡化水溫公式: (目標溫度 x 3) - 麵粉溫度 - 室溫(這裡假設酵種溫度=室溫) - 摩擦係數
-        const roomT = parseFloat(document.getElementById('roomTemp').value);
-        let reqWaterTemp = (targetTemp * 3) - flourTemp - roomT - friction;
-        reqWaterTemp = Math.round(reqWaterTemp * 10) / 10;
-
-        document.getElementById('reqWaterTemp').innerText = reqWaterTemp;
-        document.getElementById('waterAmountOut').innerText = totalWaterGrams;
-        document.getElementById('cwTempOut').innerText = coldT;
-        document.getElementById('hwTempOut').innerText = hotT;
-
-        // 冷熱水調合 (十字交叉法)
-        // HotWater = Total * (ReqTemp - ColdTemp) / (HotTemp - ColdTemp)
-        let hotWater = 0;
-        let coldWater = totalWaterGrams;
-        
-        if (reqWaterTemp >= hotT) {
-            hotWater = totalWaterGrams;
-            coldWater = 0;
-        } else if (reqWaterTemp <= coldT) {
-            hotWater = 0;
-            coldWater = totalWaterGrams;
-        } else {
-            hotWater = totalWaterGrams * ((reqWaterTemp - coldT) / (hotT - coldT));
-            coldWater = totalWaterGrams - hotWater;
-        }
-
-        document.getElementById('hotWaterOut').innerText = Math.round(hotWater);
-        document.getElementById('coldWaterOut').innerText = Math.round(coldWater);
-    }
-
-    // 3. 排程計算邏輯
-    function calcSchedule() {
-        const startTimeStr = document.getElementById('startTime').value;
-        const temp = parseFloat(document.getElementById('roomTemp').value);
-        document.getElementById('tempOut').innerText = temp;
-
-        if (!startTimeStr) return;
-        let currentTime = new Date(startTimeStr);
-
-        // 溫度補償演算法：以 23°C 為基準，每升高 1°C 時間縮短約 7% (0.93)
-        const baseTemp = 23;
-        const tempFactor = Math.pow(0.93, temp - baseTemp);
-
-        const timelineEl = document.getElementById('timeline');
-        timelineEl.innerHTML = ''; // 清空
-
-        // 輔助函數：新增排程節點
-        function addEvent(title, desc) {
-            const timeStr = currentTime.toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit', hour12: false });
-            const dateStr = currentTime.toLocaleDateString('zh-TW', { month: 'short', day: 'numeric' });
+        function update() {
+            const count = +document.getElementById('lCount').value, weight = +document.getElementById('lWeight').value;
+            const hyd = +document.getElementById('hyd').value, lev = +document.getElementById('lev').value;
+            const temp = +document.getElementById('temp').value, startTime = new Date(stInput.value);
             
-            timelineEl.innerHTML += `
-                <div class="timeline-item">
-                    <span class="time">${dateStr} ${timeStr}</span>
-                    <span class="task">${title}</span>
-                    <span class="desc">${desc}</span>
-                </div>
-            `;
+            const total = count * weight;
+            const flour = Math.round(total / ((100 + hyd + lev + 2)/100));
+            const water = Math.round(flour * hyd / 100), levain = Math.round(flour * lev / 100), salt = Math.round(flour * 0.02);
+
+            document.getElementById('rTable').innerHTML = `
+                <tr><td>高筋麵粉</td><td>${flour}g</td></tr>
+                <tr><td>水</td><td>${water}g</td></tr>
+                <tr><td>魯邦種</td><td>${levain}g</td></tr>
+                <tr><td>鹽</td><td>${salt}g</td></tr>
+                <tr style="font-weight:bold; color:#8c7355;"><td>總重</td><td>${total}g</td></tr>`;
+
+            let curr = new Date(startTime);
+            const factor = Math.pow(0.93, temp - 23);
+            const steps = [
+                {n:'Levain #1', d:4*factor}, {n:'Levain #2', d:5.5*factor}, {n:'Levain #3', d:7.5*factor},
+                {n:'混合與水合', d:0.5}, {n:'折疊 #1', d:0.5}, {n:'折疊 #2', d:0.5}, {n:'折疊 #3', d:4*factor},
+                {n:'預整形', d:0.5}, {n:'最終整形', d:14}, {n:'烘烤', d:0}
+            ];
+            
+            document.getElementById('tLine').innerHTML = steps.map(s => {
+                const html = `<div class="timeline-item"><span class="time">${curr.getHours().toString().padStart(2,'0')}:${curr.getMinutes().toString().padStart(2,'0')}</span><span class="task">${s.n}</span></div>`;
+                curr = new Date(curr.getTime() + s.d * 3600000);
+                return html;
+            }).join('');
         }
-
-        // --- 三階段 Levain ---
-        addEvent('Levain 餵養 #1 (喚醒)', '比例 1:1:1');
-        // 階段 1 發酵時間：基準 4 小時
-        currentTime = new Date(currentTime.getTime() + (4 * tempFactor * 3600000));
-        
-        addEvent('Levain 餵養 #2 (續養)', '比例 1:2:2，活性加速');
-        // 階段 2 發酵時間：基準 5.5 小時
-        currentTime = new Date(currentTime.getTime() + (5.5 * tempFactor * 3600000));
-
-        addEvent('Levain 餵養 #3 (最終種)', '比例 1:3:3，衝刺巔峰');
-        // 階段 3 發酵時間：基準 7.5 小時
-        currentTime = new Date(currentTime.getTime() + (7.5 * tempFactor * 3600000));
-
-        // --- 主麵團階段 ---
-        addEvent('水合 (Autolyse) & 攪拌 (Mix)', '加入 Levain 與鹽，確認麵團溫度');
-        
-        // 折疊 (3次, 每 30 分鐘)
-        for (let i = 1; i <= 3; i++) {
-            currentTime = new Date(currentTime.getTime() + (30 * 60000));
-            addEvent(`折疊 Fold #${i}`, i === 1 ? 'Stretch & Fold (強化麵筋)' : 'Coil Fold (輕柔折疊)');
-        }
-
-        // 基礎發酵剩餘時間 (總基發 基準約 5.5 小時，扣除前面的折疊 1.5小時)
-        const totalBulkBase = 5.5 * tempFactor * 3600000;
-        const remainingBulk = totalBulkBase - (1.5 * 3600000); 
-        if(remainingBulk > 0) {
-            currentTime = new Date(currentTime.getTime() + remainingBulk);
-        }
-
-        addEvent('發酵結束 & 預整形 (Preshape)', '分割麵團，滾圓，桌上鬆弛 20-30 分鐘');
-        
-        currentTime = new Date(currentTime.getTime() + (30 * 60000));
-        addEvent('最終整形 & 入模 (Shape)', '放入發酵籃，包裝好準備冷藏發酵 (Cold Retard)');
-
-        // 預計烘烤 (隔天早上)
-        currentTime = new Date(currentTime.getTime() + (14 * 3600000)); // 假設冷藏 14 小時
-        addEvent('入爐烘烤 (Bake)', '割線，入爐烘烤。預先以 250°C 預熱鑄鐵鍋 45 分鐘');
-    }
-
-    // 初始計算
-    calculateAll();
-</script>
-
+        inputs.forEach(i => i.addEventListener('input', update));
+        update();
+    </script>
 </body>
 </html>
